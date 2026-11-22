@@ -138,7 +138,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
 <nav><div class="wrap">
 <a class="logo" href="#top"><i>🚗</i>Car Advisor</a>
 <div class="nav-links">
-<a href="#how">How it works</a><a href="#myths">Myth busters</a><a href="#calculator">Budget check</a><a href="#report">The report</a><a href="#faq">FAQ</a>
+<a href="#how">How it works</a><a href="#myths">Myth busters</a><a href="#report">The report</a><a href="#faq">FAQ</a>
 <a class="btn btn-primary" href="https://aarjav11-ux.github.io/car-advisor/">Start free check</a>
 </div></div></nav>
 
@@ -204,26 +204,6 @@ footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
 </div>
 </div></section>
 
-<section id="calculator"><div class="wrap">
-<div class="sec-head fade"><span class="eyebrow">Budget check</span><h2>Kitni gaadi afford kar sakte ho?</h2><p>A quick rule-of-thumb check before you fall in love with a car. Keep your EMI to about 15–20% of take-home pay.</p></div>
-<div class="calc fade">
-<div class="card">
-<div class="field"><label for="pay">Monthly take-home pay (₹)</label><input id="pay" type="number" min="0" value="80000"><div class="hint">After tax, what reaches your bank each month</div></div>
-<div class="field"><label for="down">Down payment you can make (₹)</label><input id="down" type="number" min="0" value="300000"><div class="hint">Keep an emergency fund separate. Don’t empty your savings.</div></div>
-<div class="field"><label for="yrs">Loan tenure (years)</label><input id="yrs" type="number" min="1" max="7" value="5"><div class="hint">Shorter loans cost less interest</div></div>
-<div class="field" style="margin-bottom:0"><label for="rate">Interest rate (% per year)</label><input id="rate" type="number" min="0" step="0.1" value="9"></div>
-</div>
-<div class="result" aria-live="polite">
-<small>Comfortable on-road budget (approx.)</small>
-<div class="big" id="r-budget">—</div>
-<div class="line"><span>Safe EMI (15% of pay)</span><b id="r-emi">—</b></div>
-<div class="line"><span>Loan this EMI repays</span><b id="r-loan">—</b></div>
-<div class="line"><span>Plus your down payment</span><b id="r-down">—</b></div>
-<small>Rule of thumb only. Fuel, insurance and service come on top. Our questionnaire looks at your full monthly cost.</small>
-<a class="btn btn-primary" href="https://aarjav11-ux.github.io/car-advisor/" style="align-self:flex-start">Find cars in this budget →</a>
-</div>
-</div>
-</div></section>
 
 <section id="report" style="background:#fff;border-top:1px solid var(--line);border-bottom:1px solid var(--line)"><div class="wrap">
 <div class="sec-head fade"><span class="eyebrow">Full paisa vasool</span><h2>What’s inside your report</h2><p>Not a generic list. A detailed, personalised report built from your own answers, about 40 pages, emailed as a PDF.</p></div>
@@ -244,17 +224,6 @@ footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
 </div>
 </div></section>
 
-<section id="pdi"><div class="wrap grid2" style="align-items:center">
-<div class="fade"><span class="eyebrow">PDI zaroor karwa lena</span><h2 style="font-size:clamp(28px,4vw,38px);margin:8px 0 12px">Delivery day checklist, free</h2><p style="color:var(--muted);font-size:17px">Most regrets start on delivery day. Run through this before you pay the balance and sign the papers.</p></div>
-<div class="check fade"><ol>
-<li>Inspect the car fully <b>before registration</b> (pre-delivery inspection).</li>
-<li>Check the <b>manufacture month and year</b> on the VIN plate.</li>
-<li>Get an <b>itemised on-road quote</b> in writing and question every extra charge.</li>
-<li>Compare <b>insurance</b> online before accepting the dealer’s package.</li>
-<li>Say no to <b>bundled accessory kits</b> you don’t need.</li>
-<li>Refuse a <b>demo car</b> being sold as new.</li>
-</ol></div>
-</div></section>
 
 <section id="faq" style="padding-top:20px"><div class="wrap" style="max-width:820px">
 <div class="sec-head fade"><span class="eyebrow">Sawaal-jawaab</span><h2>Questions buyers ask us</h2></div>
@@ -275,24 +244,11 @@ footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
 
 <footer><div class="wrap">
 <div><b style="color:#fff">Car Advisor</b><br>Personalised car buying reports for Indian buyers.</div>
-<div style="max-width:520px">Recommendations are guidance based on your answers and publicly available information. Prices, features and ratings change. Always confirm details with the dealer before you buy.</div>
 </div></footer>
 
 <a class="btn btn-primary float" href="https://aarjav11-ux.github.io/car-advisor/">Start free check</a>
 
 <script>
-// affordability rule of thumb
-const fmt=n=>'₹'+(n>=1e5?(n/1e5).toFixed(1)+' lakh':Math.round(n).toLocaleString('en-IN'));
-function calc(){
- const pay=+document.getElementById('pay').value||0,down=+document.getElementById('down').value||0,
- yrs=Math.min(7,Math.max(1,+document.getElementById('yrs').value||5)),rate=+document.getElementById('rate').value||0;
- const emi=pay*0.15,n=yrs*12,r=rate/1200,loan=r?emi*(1-Math.pow(1+r,-n))/r:emi*n;
- document.getElementById('r-emi').textContent=fmt(emi)+'/month';
- document.getElementById('r-loan').textContent=fmt(loan);
- document.getElementById('r-down').textContent=fmt(down);
- document.getElementById('r-budget').textContent=pay?'Up to '+fmt(loan+down):'—';
-}
-['pay','down','yrs','rate'].forEach(id=>document.getElementById(id).addEventListener('input',calc));calc();
 // gentle reveal
 const io='IntersectionObserver' in window?new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('on');io.unobserve(e.target)}}),{threshold:.12}):null;
 document.querySelectorAll('.fade').forEach(el=>io?io.observe(el):el.classList.add('on'));
