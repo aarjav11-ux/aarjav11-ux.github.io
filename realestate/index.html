@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Gurgaon Property Advisor · Personal property buying consultation</title>
+<meta name="description" content="Personal property buying consultation for Gurgaon. Answer questions about your budget, family and plans, and get a detailed report on the sectors and projects that fit you.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#14213d;--navy2:#1f2f55;--ink:#1b2333;--muted:#5b6475;--line:#e3e7ee;--bg:#fbfaf7;--card:#ffffff;--acc:#c2611f;--acc2:#f0a26a;--soft:#fff4ec;--ok:#2f7d5b;--oksoft:#ecf7f1}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:Inter,system-ui,-apple-system,sans-serif;color:var(--ink);background:var(--bg);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+h1,h2,h3{font-family:'Space Grotesk',Inter,sans-serif;line-height:1.15;margin:0;letter-spacing:-.01em}
+.wrap{max-width:1120px;margin:0 auto;padding:0 20px}
+.btn{display:inline-flex;align-items:center;gap:8px;font-weight:600;text-decoration:none;border-radius:12px;padding:14px 22px;transition:transform .15s,box-shadow .15s,background .15s;cursor:pointer;border:0;font:inherit;font-weight:600}
+.btn:hover{transform:translateY(-1px)}
+.btn-primary{background:var(--acc);color:#fff;box-shadow:0 8px 24px rgba(194,97,31,.28)}
+.btn-primary:hover{background:#ad5418}
+.btn-ghost{background:transparent;color:inherit;border:1.5px solid currentColor;opacity:.9}
+.eyebrow{font-size:13px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--acc)}
+.badge{display:inline-block;font-size:13px;font-weight:600;padding:4px 12px;border-radius:999px;background:var(--soft);color:#a24f15}
+section{padding:84px 0}
+.sec-head{max-width:720px;margin-bottom:40px}
+.sec-head h2{font-size:clamp(28px,4vw,40px);margin:8px 0 12px}
+.sec-head p{color:var(--muted);font-size:18px;margin:0}
+/* nav */
+nav{position:sticky;top:0;z-index:20;background:rgba(20,33,61,.96);backdrop-filter:blur(8px);color:#fff}
+nav .wrap{display:flex;align-items:center;justify-content:space-between;height:64px}
+.logo{font-family:'Space Grotesk';font-weight:700;font-size:20px;text-decoration:none;display:flex;align-items:center;gap:10px}
+.logo i{width:30px;height:30px;border-radius:8px;background:var(--acc);display:grid;place-items:center;font-style:normal;font-size:16px}
+.nav-links{display:flex;gap:26px;align-items:center;font-size:15px}
+.nav-links a{text-decoration:none;opacity:.85}.nav-links a:hover{opacity:1}
+.nav-links .btn{padding:10px 16px;opacity:1}
+@media(max-width:860px){.nav-links a:not(.btn){display:none}}
+/* hero */
+.hero{background:radial-gradient(1200px 500px at 85% -10%,#2b3f70 0%,transparent 60%),var(--navy);color:#f7f5f0;padding:80px 0 96px;overflow:hidden}
+.hero .wrap{display:grid;grid-template-columns:1.15fr .85fr;gap:56px;align-items:center}
+.warn{display:inline-flex;align-items:center;gap:8px;background:rgba(240,162,106,.14);border:1px solid rgba(240,162,106,.4);color:#ffd2b0;padding:7px 14px;border-radius:999px;font-weight:600;font-size:14px}
+.hero h1{font-size:clamp(36px,5.4vw,60px);margin:20px 0 18px}
+.hero h1 em{font-style:normal;color:var(--acc2)}
+.hero p.lead{font-size:19px;color:#c9d2e3;max-width:560px;margin:0 0 30px}
+.hero .ctas{display:flex;gap:14px;flex-wrap:wrap}
+.hero .btn-ghost{color:#f7f5f0}
+.ticks{display:flex;flex-wrap:wrap;gap:18px;margin-top:28px;font-size:14px;color:#c9d2e3}
+.ticks span:before{content:"✓ ";color:var(--acc2);font-weight:700}
+.report-mock{position:relative;height:420px}
+.page-card{position:absolute;width:300px;background:#fbfaf7;color:var(--ink);border-radius:14px;box-shadow:0 30px 60px rgba(0,0,0,.35);padding:22px}
+.page-card.p1{right:20px;top:0;transform:rotate(4deg)}
+.page-card.p2{right:110px;top:70px;transform:rotate(-5deg);background:#14213d;color:#f7f5f0;border:1px solid #2c3e68}
+.page-card .k{font-size:10px;font-weight:700;letter-spacing:.12em;color:var(--acc);text-transform:uppercase}
+.page-card h4{font-family:'Space Grotesk';font-size:20px;margin:6px 0 12px}
+.page-card .row{display:flex;justify-content:space-between;font-size:12px;padding:7px 0;border-bottom:1px solid var(--line)}
+.page-card.p2 .row{border-color:#2c3e68}
+.page-card .pill{display:inline-block;background:var(--acc);color:#fff;border-radius:99px;font-size:11px;font-weight:700;padding:3px 10px;margin-bottom:8px}
+@media(max-width:900px){.hero .wrap{grid-template-columns:1fr}.report-mock{display:none}}
+/* regret */
+.regret{background:var(--bg)}
+.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+@media(max-width:960px){.grid4{grid-template-columns:1fr 1fr}.grid3{grid-template-columns:1fr}}
+@media(max-width:620px){.grid4,.grid2{grid-template-columns:1fr}}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:24px}
+.card h3{font-size:19px;margin:10px 0 8px}
+.card p{margin:0;color:var(--muted);font-size:15px}
+.ico{width:42px;height:42px;border-radius:12px;background:var(--soft);display:grid;place-items:center;font-size:20px}
+/* steps */
+.how{background:#fff;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.step{position:relative;padding-top:6px}
+.step .n{font-family:'Space Grotesk';font-weight:700;font-size:48px;color:var(--acc);line-height:1}
+.step h3{font-size:21px;margin:10px 0 8px}
+.step p{color:var(--muted);margin:0}
+/* budget */
+.budgets{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+@media(max-width:860px){.budgets{grid-template-columns:1fr 1fr}}
+.bud{display:block;text-decoration:none;background:var(--card);border:1.5px solid var(--line);border-radius:16px;padding:22px;transition:border-color .15s,transform .15s}
+.bud:hover{border-color:var(--acc);transform:translateY(-2px)}
+.bud .amt{font-family:'Space Grotesk';font-weight:700;font-size:26px}
+.bud .who{color:var(--muted);font-size:14px;margin-top:6px}
+.bud .go{color:var(--acc);font-weight:600;font-size:14px;margin-top:14px;display:block}
+/* myths */
+.myths{background:var(--navy);color:#f7f5f0}
+.myths .sec-head p{color:#c9d2e3}
+.myth{background:var(--navy2);border:1px solid #2c3e68;border-radius:16px;padding:24px}
+.myth .tag{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--acc2)}
+.myth h3{font-size:20px;margin:10px 0 10px}
+.myth .truth{color:#c9d2e3;font-size:15px;margin:0}
+.myth .truth b{color:#fff}
+/* calculator */
+.calc{display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:stretch}
+@media(max-width:860px){.calc{grid-template-columns:1fr}}
+.field{margin-bottom:18px}
+.field label{display:block;font-weight:600;margin-bottom:6px}
+.field .hint{font-size:13px;color:var(--muted);margin-top:4px}
+.field input{width:100%;padding:13px 14px;font:inherit;border:1.5px solid var(--line);border-radius:10px;background:#fff}
+.field input:focus{outline:none;border-color:var(--acc)}
+.result{background:var(--navy);color:#f7f5f0;border-radius:18px;padding:28px;display:flex;flex-direction:column;gap:14px}
+.result .big{font-family:'Space Grotesk';font-weight:700;font-size:40px;color:var(--acc2);line-height:1.1}
+.result .line{display:flex;justify-content:space-between;border-bottom:1px solid #2c3e68;padding:8px 0;font-size:15px}
+.result small{color:#9aa7c2}
+/* report */
+.inside{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+@media(max-width:860px){.inside{grid-template-columns:1fr 1fr}}
+@media(max-width:520px){.inside{grid-template-columns:1fr}}
+.in{display:flex;gap:12px;align-items:flex-start;background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px}
+.in b{display:block}.in span{color:var(--muted);font-size:14px}
+.in .pg{flex:none;font-family:'Space Grotesk';font-weight:700;color:var(--acc);min-width:46px}
+/* checklist */
+.check{background:var(--oksoft);border:1px solid #cfe9db;border-radius:18px;padding:28px}
+.check ol{margin:0;padding-left:20px}
+.check li{margin:8px 0}
+/* faq */
+details{background:#fff;border:1px solid var(--line);border-radius:14px;padding:18px 20px;margin-bottom:12px}
+summary{font-weight:600;cursor:pointer;list-style:none;display:flex;justify-content:space-between;gap:12px}
+summary::-webkit-details-marker{display:none}
+summary:after{content:"+";color:var(--acc);font-size:22px;line-height:1}
+details[open] summary:after{content:"–"}
+details p{color:var(--muted);margin:12px 0 0}
+/* final */
+.final{background:linear-gradient(135deg,var(--acc),#a24f15);color:#fff;text-align:center}
+.final h2{font-size:clamp(30px,4.5vw,46px);margin:10px 0 14px}
+.final p{font-size:18px;opacity:.92;max-width:640px;margin:0 auto 28px}
+.final .btn-primary{background:#14213d;box-shadow:0 10px 30px rgba(0,0,0,.25)}
+footer{background:#0f1830;color:#9aa7c2;padding:40px 0;font-size:14px}
+footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
+.float{position:fixed;right:18px;bottom:18px;z-index:30;display:none}
+@media(max-width:860px){.float{display:inline-flex}}
+.fade{opacity:0;transform:translateY(14px);transition:opacity .6s ease,transform .6s ease}
+.fade.on{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){.fade{opacity:1;transform:none;transition:none}html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<nav><div class="wrap">
+<a class="logo" href="#top"><i>🏢</i>Gurgaon Property Advisor</a>
+<div class="nav-links">
+<a href="#how">How it works</a><a href="#myths">Myth busters</a><a href="#report">The report</a><a href="#faq">FAQ</a>
+<a class="btn btn-primary" href="https://aarjav11-ux.github.io/realestate-advisor/">Start consultation</a>
+</div></div></nav>
+
+<header class="hero" id="top"><div class="wrap" style="grid-template-columns:1fr">
+<div>
+<span class="warn">⚠️ Gurgaon mein ghar lene se pehle</span>
+<h1>Ghar ek baar lete ho. <em>Sahi salah pehle lo.</em></h1>
+<p class="lead" style="max-width:720px">A personal property-buying consultation for Gurgaon. Tell us your budget, family, commute and plans, and get a detailed report on the micro-markets, project types and checks that fit you, before you pay a token amount.</p>
+<div class="ctas">
+<a class="btn btn-primary" href="https://aarjav11-ux.github.io/realestate-advisor/">Find the right Gurgaon property for me →</a>
+
+</div>
+<div class="ticks"><span>✓ Self-use or investment</span><span>✓ Golf Course Road to Dwarka Expressway</span><span>✓ Legal, RERA and cost checks</span></div>
+</div>
+</div></header>
+
+<section class="regret" id="why"><div class="wrap">
+<div class="sec-head fade"><span class="eyebrow">Common mistakes</span><h2>Where Gurgaon buyers go wrong</h2><p>Most regret comes from a few avoidable mistakes made in a hurry.</p></div>
+<div class="grid4"><div class="card fade"><div class="ico">📣</div><h3>Buying on hype</h3><p>Booking because of a reel or a launch event, not because the project fits your needs and budget.</p></div><div class="card fade"><div class="ico">💸</div><h3>Missing the real cost</h3><p>Stamp duty, GST, EDC/IDC, PLC, club and power-backup charges can add a big amount on top of the base price.</p></div><div class="card fade"><div class="ico">🏗️</div><h3>Ignoring delay risk</h3><p>Under-construction projects can run late; carrying rent and EMI together strains cash flow.</p></div><div class="card fade"><div class="ico">📜</div><h3>Skipping legal checks</h3><p>RERA status, land title, bank approvals and approach roads decide whether a deal is safe.</p></div></div>
+</div></section>
+
+<section class="how" id="how"><div class="wrap">
+<div class="sec-head fade"><span class="eyebrow">How it works</span><h2>Teen simple steps. Bas.</h2><p>Your consultation, without sales calls or store pressure. Just your answers, careful research and a clear recommendation.</p></div>
+<div class="grid3">
+<div class="step fade"><div class="n">1</div><h3>Answer smart questions</h3><p>About your needs, budget and preferences. Each question carries a weight, so what matters most to you counts most. Step by step, in about 10–15 minutes.</p></div>
+<div class="step fade"><div class="n">2</div><h3>We do the research</h3><p>Your answers are matched against our research library, cross-checked with a second opinion, and key facts are verified.</p></div>
+<div class="step fade"><div class="n">3</div><h3>Get your report by email</h3><p>A detailed PDF with your best-fit properties, a one-page summary, comparisons and why other options didn’t make the cut.</p></div>
+</div>
+<div style="margin-top:36px" class="fade"><a class="btn btn-primary" href="https://aarjav11-ux.github.io/realestate-advisor/">Start my consultation →</a></div>
+</div></section>
+
+<section id="budget"><div class="wrap">
+<div class="sec-head fade"><span class="eyebrow">Your budget</span><h2>Where does your budget fit?</h2><p>Pick where you fit and start the questionnaire.</p></div>
+<div class="budgets"><a class="bud fade" href="https://aarjav11-ux.github.io/realestate-advisor/"><div class="amt">Under ₹1.5 Cr</div><div class="who">Builder floors, compact 2–3 BHKs in emerging sectors</div><span class="go">Find my property →</span></a><a class="bud fade" href="https://aarjav11-ux.github.io/realestate-advisor/"><div class="amt">₹1.5–3 Cr</div><div class="who">3 BHKs in New Gurgaon, Dwarka Expressway, SPR</div><span class="go">Find my property →</span></a><a class="bud fade" href="https://aarjav11-ux.github.io/realestate-advisor/"><div class="amt">₹3–6 Cr</div><div class="who">Larger homes on Golf Course Extension and established sectors</div><span class="go">Find my property →</span></a><a class="bud fade" href="https://aarjav11-ux.github.io/realestate-advisor/"><div class="amt">₹6 Cr+</div><div class="who">Luxury on Golf Course Road and premium low-density projects</div><span class="go">Find my property →</span></a></div>
+</div></section>
+
+<section class="myths" id="myths"><div class="wrap">
+<div class="sec-head fade"><span class="eyebrow">Myth busters</span><h2>What people believe vs what to check</h2><p>The popular choice isn’t always the right one for you. Here’s what to know first.</p></div>
+<div class="grid3"><div class="myth fade"><span class="tag">Myth 1</span><h3>New launch is always cheaper</h3><p class="truth"><b>Sach:</b> Launch prices are lower, but you take on delay risk and carry costs. Compare the total cost to possession.</p></div><div class="myth fade"><span class="tag">Myth 2</span><h3>Bigger club means better society</h3><p class="truth"><b>Sach:</b> Large amenities raise maintenance. Check density, lifts per core and monthly CAM first.</p></div><div class="myth fade"><span class="tag">Myth 3</span><h3>Rental yield pays the EMI</h3><p class="truth"><b>Sach:</b> Typical residential rental yields in Gurgaon are low. Plan the EMI from income, not rent.</p></div><div class="myth fade"><span class="tag">Myth 4</span><h3>EOI cheques are a formality</h3><p class="truth"><b>Sach:</b> Before RERA registration, allotments can be cancelled or delayed with little recourse.</p></div><div class="myth fade"><span class="tag">Myth 5</span><h3>Every road will be built soon</h3><p class="truth"><b>Sach:</b> Sector roads, water and sewer lines can take years. Check what exists today.</p></div><div class="myth fade"><span class="tag">Myth 6</span><h3>Super area is what you get</h3><p class="truth"><b>Sach:</b> Compare RERA carpet area; loading on super area varies a lot between projects.</p></div></div>
+</div></section>
+
+<section id="report" style="background:#fff;border-top:1px solid var(--line);border-bottom:1px solid var(--line)"><div class="wrap">
+<div class="sec-head fade"><span class="eyebrow">Full paisa vasool</span><h2>What’s inside your report</h2><p>Not a generic list. A detailed, personalised report built from your own answers, emailed as a PDF.</p></div>
+<div class="inside"><div class="in fade"><span class="pg">p. 3</span><div><b>One-page summary</b><span>Our top recommendations and next steps</span></div></div><div class="in fade"><span class="pg">p. 4–6</span><div><b>Your profile and priorities</b><span>What matters most, weighted</span></div></div><div class="in fade"><span class="pg">p. 7–8</span><div><b>Micro-markets compared</b><span>Where your budget and commute fit</span></div></div><div class="in fade"><span class="pg">p. 9</span><div><b>Project type and stage</b><span>Apartment, floor or plot; ready or under construction</span></div></div><div class="in fade"><span class="pg">p. 10–15</span><div><b>Three recommended options</b><span>Why each fits, what to watch</span></div></div><div class="in fade"><span class="pg">p. 16</span><div><b>Side-by-side</b><span>Your priorities vs each option</span></div></div><div class="in fade"><span class="pg">p. 17</span><div><b>Total cost breakdown</b><span>Taxes and charges beyond the base price</span></div></div><div class="in fade"><span class="pg">p. 18–19</span><div><b>Legal and site checks</b><span>RERA, title, roads, water, red flags</span></div></div><div class="in fade"><span class="pg">p. 21+</span><div><b>What we ruled out, and why</b><span>Options that don't fit you</span></div></div></div>
+<div style="margin-top:32px" class="fade"><a class="btn btn-primary" href="https://aarjav11-ux.github.io/realestate-advisor/">Get my personalised report →</a></div>
+</div></section>
+
+<section id="faq" style="padding-top:60px"><div class="wrap" style="max-width:820px">
+<div class="sec-head fade"><span class="eyebrow">Sawaal-jawaab</span><h2>Questions people ask us</h2></div>
+<details class="fade"><summary>Is this a broker service?</summary><p>No. This is a consultation: you get a report to help you decide. We don't sell projects or take booking money.</p></details><details class="fade"><summary>How long does the questionnaire take?</summary><p>About 15–20 minutes. Only the most important questions are required.</p></details><details class="fade"><summary>Do you cover only Gurgaon?</summary><p>Yes, Gurgaon (Gurugram) micro-markets including Golf Course Road, Golf Course Extension, SPR, Dwarka Expressway, New Gurgaon and Sohna.</p></details><details class="fade"><summary>Will you tell me exactly which project to buy?</summary><p>The report recommends options that fit your answers and explains what to verify before you pay. The final decision and checks are yours.</p></details><details class="fade"><summary>Is my information shared?</summary><p>Your answers are used only to prepare your report.</p></details><details class="fade"><summary>How do I get the report?</summary><p>By email, as a detailed PDF.</p></details>
+</div></section>
+
+<section class="final"><div class="wrap">
+<span class="badge" style="background:rgba(255,255,255,.18);color:#fff">Booking se pehle ek baar</span>
+<h2>Make your biggest purchase with clear eyes.</h2>
+<p>A few minutes now can save you a lot of regret. Answer the questions, and let your report do the comparing for you.</p>
+<a class="btn btn-primary" href="https://aarjav11-ux.github.io/realestate-advisor/">Start my Gurgaon property consultation →</a>
+</div></section>
+
+<footer><div class="wrap">
+<div><b style="color:#fff">Gurgaon Property Advisor</b><br>Personal property consultation.</div>
+</div></footer>
+
+<a class="btn btn-primary float" href="https://aarjav11-ux.github.io/realestate-advisor/">Start consultation</a>
+<script>
+const io='IntersectionObserver' in window?new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('on');io.unobserve(e.target)}}),{threshold:.12}):null;
+document.querySelectorAll('.fade').forEach(el=>io?io.observe(el):el.classList.add('on'));
+</script>
+</body>
+</html>
