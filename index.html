@@ -44,18 +44,51 @@ section{padding:72px 0}
 .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}@media(max-width:820px){.steps{grid-template-columns:1fr}}
 .step .n{font-family:'Space Grotesk';font-size:34px;font-weight:700;color:var(--acc)}.step h3{font-size:20px;margin:6px 0}.step p{color:var(--muted);margin:0}
 footer{background:var(--navy);color:#c9d2e3;padding:36px 0;font-size:15px}
+
+.mm{background:#fff;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.mm-wrap{display:grid;grid-template-columns:220px 1fr;gap:28px;align-items:center}
+.mm-root{background:var(--navy);color:#fff;border-radius:18px;padding:22px;text-align:center;font-family:'Space Grotesk';font-weight:700;font-size:20px;position:relative}
+.mm-root small{display:block;font-family:Inter;font-weight:500;font-size:13px;color:#c9d2e3;margin-top:6px}
+.mm-branches{display:flex;flex-direction:column;gap:14px;border-left:3px solid var(--acc);padding-left:22px}
+.mm-b{position:relative}
+.mm-b:before{content:"";position:absolute;left:-25px;top:22px;width:22px;height:3px;background:var(--acc)}
+.mm-b>button{all:unset;cursor:pointer;display:flex;align-items:center;gap:10px;background:var(--soft);border:1px solid #f3d3bc;border-radius:12px;padding:10px 14px;font-weight:600;width:max-content;max-width:100%}
+.mm-b>button .t{font-size:12px;color:var(--muted);font-weight:500}
+.mm-b>button .chev{transition:transform .2s;color:var(--acc)}
+.mm-b.open>button .chev{transform:rotate(90deg)}
+.mm-kids{display:none;flex-wrap:wrap;gap:8px;margin:10px 0 4px 18px;padding-left:16px;border-left:2px dashed #e7c3a8}
+.mm-b.open .mm-kids{display:flex}
+.mm-kids a{text-decoration:none;background:#fff;border:1px solid var(--line);border-radius:999px;padding:7px 13px;font-size:14px;transition:border-color .15s,color .15s}
+.mm-kids a:hover{border-color:var(--acc);color:var(--acc)}
+.mm-kids a.go{background:var(--acc);color:#fff;border-color:var(--acc);font-weight:600}
+.mm-kids a.go:hover{background:#ad5418;color:#fff}
+.mm-tip{color:var(--muted);font-size:14px;margin-top:14px}
+@media(max-width:760px){.mm-wrap{grid-template-columns:1fr}.mm-root{max-width:260px}}
 </style>
 </head>
 <body>
 <nav><div class="wrap"><a class="logo" href="#top"><i>🧭</i>Personal Consultations</a>
-<div class="links"><a href="#consultations">Consultations</a><a href="#how">How it works</a></div></div></nav>
+<div class="links"><a href="#map">Consultation map</a><a href="#consultations">Consultations</a><a href="#how">How it works</a></div></div></nav>
 
 <header class="hero" id="top"><div class="wrap">
 <span class="eyebrow">Kharidne se pehle ek baar</span>
 <h1>Sahi choice, <em>pehli baar mein.</em></h1>
 <p>Personal consultations for the big buys in your life, including Gurgaon property,, and for your next good read. Answer questions about your needs and budget, and get a detailed, personalised report by email.</p>
-<a class="btn btn-primary" href="#consultations">Choose a consultation →</a>
+<a class="btn btn-primary" href="#map">Find your consultation →</a>
 </div></header>
+
+<section class="mm" id="map"><div class="wrap">
+<div class="sec-head"><span class="eyebrow">Consultation map</span><h2>Not sure where to start?</h2><p>Tap a branch to see what each consultation covers, then pick the one that matches what you’re deciding.</p></div>
+<div class="mm-wrap"><div class="mm-root">🧭 What are you deciding?<small>5 consultations · 1 detailed report each</small></div>
+<div class="mm-branches">
+<div class="mm-b open"><button type="button" aria-expanded="true"><span>🚗</span><span>Buying a car<br><span class="t">New car, any budget</span></span><span class="chev">▶</span></button><div class="mm-kids"><a href="https://aarjav11-ux.github.io/cars/">Hatchback / sedan / SUV</a><a href="https://aarjav11-ux.github.io/cars/">Petrol, CNG, diesel or EV</a><a href="https://aarjav11-ux.github.io/cars/">Manual or automatic</a><a href="https://aarjav11-ux.github.io/cars/">On-road price & EMI</a><a href="https://aarjav11-ux.github.io/cars/">Safety ratings</a><a class="go" href="https://aarjav11-ux.github.io/cars/">Car consultation →</a></div></div>
+<div class="mm-b"><button type="button" aria-expanded="false"><span>📱</span><span>Buying a phone<br><span class="t">Android or iPhone</span></span><span class="chev">▶</span></button><div class="mm-kids"><a href="https://aarjav11-ux.github.io/phones/">Camera & battery</a><a href="https://aarjav11-ux.github.io/phones/">Performance & gaming</a><a href="https://aarjav11-ux.github.io/phones/">Software updates</a><a href="https://aarjav11-ux.github.io/phones/">Size & build</a><a href="https://aarjav11-ux.github.io/phones/">Total cost</a><a class="go" href="https://aarjav11-ux.github.io/phones/">Phone consultation →</a></div></div>
+<div class="mm-b"><button type="button" aria-expanded="false"><span>🏠</span><span>Buying home appliances<br><span class="t">Pick only what you need</span></span><span class="chev">▶</span></button><div class="mm-kids"><a href="https://aarjav11-ux.github.io/appliances/">Air conditioner</a><a href="https://aarjav11-ux.github.io/appliances/">Refrigerator</a><a href="https://aarjav11-ux.github.io/appliances/">Washing machine / dryer</a><a href="https://aarjav11-ux.github.io/appliances/">Television</a><a href="https://aarjav11-ux.github.io/appliances/">Water purifier</a><a href="https://aarjav11-ux.github.io/appliances/">Dishwasher</a><a href="https://aarjav11-ux.github.io/appliances/">Chimney / hob</a><a href="https://aarjav11-ux.github.io/appliances/">Microwave / OTG / air fryer</a><a href="https://aarjav11-ux.github.io/appliances/">Mixer / juicer</a><a href="https://aarjav11-ux.github.io/appliances/">Vacuum cleaner</a><a href="https://aarjav11-ux.github.io/appliances/">Air purifier</a><a href="https://aarjav11-ux.github.io/appliances/">Ceiling fan (BLDC)</a><a class="go" href="https://aarjav11-ux.github.io/appliances/">Appliance consultation →</a></div></div>
+<div class="mm-b"><button type="button" aria-expanded="false"><span>🏢</span><span>Buying property in Gurgaon<br><span class="t">Self-use or investment</span></span><span class="chev">▶</span></button><div class="mm-kids"><a href="https://aarjav11-ux.github.io/realestate/">Golf Course Rd / Extension</a><a href="https://aarjav11-ux.github.io/realestate/">Dwarka Expressway</a><a href="https://aarjav11-ux.github.io/realestate/">New Gurgaon / SPR / Sohna</a><a href="https://aarjav11-ux.github.io/realestate/">Apartment, floor or plot</a><a href="https://aarjav11-ux.github.io/realestate/">Ready vs under construction</a><a href="https://aarjav11-ux.github.io/realestate/">Total cost, RERA & legal checks</a><a class="go" href="https://aarjav11-ux.github.io/realestate/">Property consultation →</a></div></div>
+<div class="mm-b"><button type="button" aria-expanded="false"><span>📚</span><span>Choosing what to read<br><span class="t">Personalised book picks</span></span><span class="chev">▶</span></button><div class="mm-kids"><a href="https://aarjav11-ux.github.io/books/">Your goals & interests</a><a href="https://aarjav11-ux.github.io/books/">Fiction or non-fiction</a><a href="https://aarjav11-ux.github.io/books/">Reading level & length</a><a href="https://aarjav11-ux.github.io/books/">What to read next</a><a class="go" href="https://aarjav11-ux.github.io/books/">Book recommendations →</a></div></div>
+</div></div>
+<p class="mm-tip">Each consultation is a short step-by-step questionnaire. You get a detailed PDF report by email with recommendations made for your answers.</p>
+</div></section>
 
 <section id="consultations"><div class="wrap">
 <div class="sec-head"><span class="eyebrow">Our consultations</span><h2>What can we help you with?</h2><p>Pick one to see how it works and what your report includes. You can start the questionnaire from there.</p></div>
@@ -97,5 +130,8 @@ footer{background:var(--navy);color:#c9d2e3;padding:36px 0;font-size:15px}
 </div></div></section>
 
 <footer><div class="wrap"><b style="color:#fff">Personal Consultations</b><br>Cars · Phones · Home appliances · Gurgaon property · Books</div></footer>
+<script>
+document.querySelectorAll('.mm-b>button').forEach(b=>b.addEventListener('click',()=>{const p=b.parentElement;const o=p.classList.toggle('open');b.setAttribute('aria-expanded',o)}));
+</script>
 </body>
 </html>
