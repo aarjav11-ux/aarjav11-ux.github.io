@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Shortlist Feedback · Personal Consultations</title>
+<meta name="description" content="Already considering a few options? Tell us what's on your shortlist and get honest, personalised feedback on each one.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#fbfaf7;--card:#fff;--fg:#14213d;--muted:#5d6577;--line:#e6e1d8;--acc:#c2611f;--acc-soft:#fbeee4;--ok:#2f7d4f;--err:#b42318}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.55 Inter,system-ui,sans-serif}
+h1,h2,h3{font-family:'Space Grotesk',Inter,sans-serif;line-height:1.2;margin:0}
+.top{background:var(--fg);color:#fff}.top .w{display:flex;justify-content:space-between;align-items:center;padding:14px 16px}
+.top a{color:#fff;text-decoration:none;font-size:14px;opacity:.85}.logo{font-family:'Space Grotesk';font-weight:700;font-size:18px;opacity:1!important}
+.w{max-width:760px;margin:0 auto;padding:0 16px}
+.hero{padding:36px 0 18px}.eb{font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--acc)}
+.hero h1{font-size:clamp(28px,5vw,40px);margin:8px 0 10px}.hero p{color:var(--muted);margin:0}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px;margin:18px 0}
+.card h2{font-size:20px;margin-bottom:4px;display:flex;align-items:center;gap:10px}.card h2 i{font-style:normal;width:38px;height:38px;border-radius:10px;background:var(--acc-soft);display:grid;place-items:center;font-size:20px}
+.sub{color:var(--muted);font-size:14px;margin:0 0 14px}
+.cats{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px}
+.cats label{border:1.5px solid var(--line);border-radius:12px;padding:14px 10px;text-align:center;cursor:pointer;font-weight:600;font-size:14px;background:var(--bg)}
+.cats label b{display:block;font-size:28px;margin-bottom:4px}.cats input{display:none}
+.cats label:has(input:checked){border-color:var(--acc);background:var(--acc-soft);color:var(--acc)}
+label.f{display:block;font-weight:600;font-size:14.5px;margin:14px 0 6px}label.f small{font-weight:400;color:var(--muted)}
+input[type=text],input[type=email],input[type=tel],input[type=number],textarea,select{width:100%;padding:12px 13px;font:inherit;border:1.5px solid var(--line);border-radius:10px;background:var(--bg);color:var(--fg)}
+textarea{min-height:76px;resize:vertical}input:focus,textarea:focus,select:focus{outline:none;border-color:var(--acc)}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:12px}@media(max-width:560px){.row{grid-template-columns:1fr}}
+.opt{border:1.5px dashed var(--line);border-radius:14px;padding:16px;margin-top:14px;background:var(--bg)}
+.opt h3{font-size:16px;display:flex;align-items:center;gap:8px}.opt h3 span{background:var(--acc);color:#fff;border-radius:999px;font-size:12px;padding:2px 9px}
+.opt.filled{border-style:solid;border-color:var(--acc)}
+.add{margin-top:12px;background:transparent;border:1.5px solid var(--acc);color:var(--acc);font:inherit;font-weight:600;padding:9px 16px;border-radius:10px;cursor:pointer}
+.go{display:block;width:100%;margin:22px 0 8px;background:var(--acc);color:#fff;border:0;border-radius:12px;padding:15px;font:inherit;font-weight:700;font-size:17px;cursor:pointer}
+.go:disabled{opacity:.6}.err{border-color:var(--err)!important}.msg{font-size:14px;color:var(--err);min-height:1.2em}
+.done{display:none;text-align:center;padding:40px 22px}.done b{font-size:44px;display:block}
+.trust{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}.trust span{font-size:13px;background:#fff;border:1px solid var(--line);border-radius:999px;padding:6px 12px}
+footer{color:var(--muted);font-size:13px;text-align:center;padding:30px 16px}
+</style></head><body>
+<div class="top"><div class="w"><a class="logo" href="../">🧭 Personal Consultations</a><a href="../">← Back to website</a></div></div>
+<div class="w">
+<section class="hero"><span class="eb">Already have a shortlist?</span>
+<h1>Get honest feedback on the options you’re considering</h1>
+<p>Tell us the 1–3 options you’re already looking at. We’ll look at each one against your needs and tell you plainly what fits, what to watch out for, and whether something else would suit you better.</p>
+<div class="trust"><span>🤝 No sales calls</span><span>📧 Feedback by email</span><span>⏱️ About 5 minutes</span></div></section>
+
+<form id="f" novalidate>
+<div class="card"><h2><i>🗂️</i>What are you deciding?</h2><p class="sub">Pick one.</p>
+<div class="cats" id="cats"></div><p class="msg" id="m-cat"></p></div>
+
+<div class="card"><h2><i>📋</i>Your shortlist</h2><p class="sub" id="shint">Add 1 to 3 options. The more detail you give, the sharper the feedback.</p>
+<div id="opts"></div><button type="button" class="add" id="add">+ Add another option</button><p class="msg" id="m-opt"></p></div>
+
+<div class="card"><h2><i>🎯</i>About your needs</h2>
+<label class="f" for="budget">Your budget <small id="bunit">(₹)</small></label><input type="text" id="budget" placeholder="e.g. ₹12 lakh">
+<label class="f" for="needs">What matters most to you? <small>(top 3, in order)</small></label><textarea id="needs" placeholder="e.g. 1. Safety  2. Low running cost  3. Boot space"></textarea>
+<label class="f" for="dealb">Any deal-breakers? <small>(optional)</small></label><input type="text" id="dealb" placeholder="e.g. no diesel, no under-construction">
+<label class="f" for="when">When do you plan to decide?</label>
+<select id="when"><option value="">Choose…</option><option>This week</option><option>Within a month</option><option>1–3 months</option><option>Just exploring</option></select>
+<label class="f" for="notes">Anything else we should know? <small>(optional)</small></label><textarea id="notes" placeholder="Usage, family, city, anything a friend would ask you"></textarea></div>
+
+<div class="card"><h2><i>📧</i>Where should we send your feedback?</h2>
+<div class="row"><div><label class="f" for="cname">Your name</label><input type="text" id="cname" autocomplete="name"></div>
+<div><label class="f" for="cemail">Email</label><input type="email" id="cemail" autocomplete="email"></div></div>
+<label class="f" for="cphone">Phone <small>(optional)</small></label><input type="tel" id="cphone" autocomplete="tel"></div>
+<p class="msg" id="m-all"></p>
+<button type="submit" class="go" id="go">Get feedback on my shortlist →</button>
+</form>
+<div class="card done" id="done"><b>✅</b><h2 style="justify-content:center">Thank you!</h2><p class="sub" id="donemsg"></p><a href="../" style="color:var(--acc);font-weight:600">← Back to the website</a></div>
+</div>
+<footer>Personal consultations for Indian buyers and readers.</footer>
+<script>
+const CAT={
+ car:{i:'🚗',l:'Car',u:'https://script.google.com/macros/s/AKfycbwbeSbmeVe4pEoT01xV4fj435eS374Kl50cVfHLhxUF1OvALlA1PObi4CluVvIuklho/exec',ph:'e.g. Hyundai Creta SX(O) 1.5 petrol AT',price:'e.g. ₹19.2 lakh on-road',bud:'e.g. ₹15 lakh on-road',nd:'e.g. 1. Safety  2. Automatic  3. Boot space'},
+ phone:{i:'📱',l:'Phone',u:'https://script.google.com/macros/s/AKfycbzx9QS-Ztv9Fzi4sl3MxFpV7VWUe2-ZDmLAPrXets8_3-IV80iUHuw89zU0Dpy3l2I8_g/exec',ph:'e.g. Samsung Galaxy S24 FE 8/256',price:'e.g. ₹42,000 on Amazon',bud:'e.g. ₹40,000',nd:'e.g. 1. Camera  2. Battery  3. Updates'},
+ appliance:{i:'🏠',l:'Home appliance',u:'https://script.google.com/macros/s/AKfycbwDHYFsq2a_sf4vZHcwnf0Tf2aLz1FogyUMnIptQTutFcLU_KczbGteda8OeACokhP6/exec',ph:'e.g. LG 1.5 ton 5-star inverter split AC',price:'e.g. ₹46,000 at Croma',bud:'e.g. ₹45,000',nd:'e.g. 1. Low electricity bill  2. Quiet  3. Service'},
+ property:{i:'🏢',l:'Gurgaon property',u:'https://script.google.com/macros/s/AKfycbwSMA9dt0j44iWKHdCzifmDDrMKR20ARDj4iAjxjLDVe3bz1O2vEvn2uqp_8EwTsPSW/exec',ph:'e.g. Godrej Nature Plus, Sector 33, 3 BHK',price:'e.g. ₹1.8 Cr all-in quoted',bud:'e.g. ₹2 Cr all-inclusive',nd:'e.g. 1. Ready in 2 years  2. Commute to Cyber City  3. Trusted developer'},
+ book:{i:'📚',l:'Book',u:'https://script.google.com/macros/s/AKfycbxWlpPypIc0PFVuw_uGpaH3IFKYLbuU_Mq53YRKDWXxz2RxqR_2GBh3fDoryrGl6SFLBQ/exec',ph:'e.g. Atomic Habits by James Clear',price:'e.g. Kindle ₹299 (optional)',bud:'e.g. ₹500 a month (optional)',nd:'e.g. 1. Practical  2. Easy to read  3. Under 300 pages'}};
+const $=id=>document.getElementById(id);let cat='',n=0;
+$('cats').innerHTML=Object.entries(CAT).map(([k,c])=>`<label><input type="radio" name="cat" value="${k}"><b>${c.i}</b>${c.l}</label>`).join('');
+function optHTML(i){return `<div class="opt" data-i="${i}"><h3><span>Option ${i}</span>${i==1?'':'<small style="font-weight:400;color:var(--muted)">(optional)</small>'}</h3>
+<label class="f">Which one? <small>(exact model, variant or project)</small></label><input type="text" class="o-name">
+<div class="row"><div><label class="f">Price you were quoted / saw</label><input type="text" class="o-price"></div>
+<div><label class="f">Where? <small>(seller, site, dealer)</small></label><input type="text" class="o-where" placeholder="e.g. dealer, website, broker"></div></div>
+<label class="f">What do you like about it?</label><textarea class="o-like" placeholder="What drew you to it"></textarea>
+<label class="f">What worries you about it?</label><textarea class="o-worry" placeholder="Any doubt, even a small one"></textarea></div>`}
+function addOpt(){if(n>=3)return;n++;$('opts').insertAdjacentHTML('beforeend',optHTML(n));applyPh();$('add').style.display=n>=3?'none':'inline-block'}
+function applyPh(){const c=CAT[cat];document.querySelectorAll('.o-name').forEach(e=>e.placeholder=c?c.ph:'Name of the option');document.querySelectorAll('.o-price').forEach(e=>e.placeholder=c?c.price:'e.g. price');
+ $('budget').placeholder=c?c.bud:'e.g. ₹12 lakh';$('needs').placeholder=c?c.nd:$('needs').placeholder}
+addOpt();$('add').onclick=addOpt;
+$('cats').onchange=e=>{cat=e.target.value;$('m-cat').textContent='';applyPh();save()};
+document.addEventListener('input',e=>{const o=e.target.closest('.opt');if(o)o.classList.toggle('filled',!!o.querySelector('.o-name').value.trim());e.target.classList.remove('err');save()});
+function opts(){return [...document.querySelectorAll('.opt')].map(o=>({name:o.querySelector('.o-name').value.trim(),price:o.querySelector('.o-price').value.trim(),where:o.querySelector('.o-where').value.trim(),like:o.querySelector('.o-like').value.trim(),worry:o.querySelector('.o-worry').value.trim()})).filter(o=>o.name)}
+function save(){try{localStorage.setItem('shortlist',JSON.stringify({cat,opts:[...document.querySelectorAll('.opt')].map(o=>[...o.querySelectorAll('input,textarea')].map(x=>x.value)),f:['budget','needs','dealb','when','notes','cname','cemail','cphone'].map(k=>$(k).value)}))}catch(e){}}
+try{const s=JSON.parse(localStorage.getItem('shortlist')||'null');if(s){if(s.cat){cat=s.cat;document.querySelector(`input[value="${cat}"]`).checked=true}
+ while(n<s.opts.length)addOpt();s.opts.forEach((vals,i)=>{const o=document.querySelectorAll('.opt')[i];[...o.querySelectorAll('input,textarea')].forEach((x,j)=>x.value=vals[j]||'');o.classList.toggle('filled',!!vals[0])});
+ ['budget','needs','dealb','when','notes','cname','cemail','cphone'].forEach((k,i)=>$(k).value=s.f[i]||'');applyPh()}}catch(e){}
+$('f').onsubmit=async e=>{e.preventDefault();let bad=[];
+ if(!cat){$('m-cat').textContent='Please pick what you are deciding.';bad.push($('cats'))}
+ const os=opts();if(!os.length){$('m-opt').textContent='Please add at least one option.';const x=document.querySelector('.o-name');x.classList.add('err');bad.push(x)}else $('m-opt').textContent='';
+ if(!$('cname').value.trim()){$('cname').classList.add('err');bad.push($('cname'))}
+ if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test($('cemail').value.trim())){$('cemail').classList.add('err');bad.push($('cemail'))}
+ if(bad.length){$('m-all').textContent='Please fill in the highlighted fields.';bad[0].scrollIntoView({behavior:'smooth',block:'center'});return}
+ $('m-all').textContent='';const c=CAT[cat];let k=0;const answers=[];const A=(q,a,w=4)=>{if(a)answers.push({n:++k,q,w,a})};
+ A('Request type','Feedback on my shortlist',5);A('Category',c.l,5);
+ os.forEach((o,i)=>{A(`Option ${i+1}: which one`,o.name,5);A(`Option ${i+1}: price quoted`,o.price);A(`Option ${i+1}: where`,o.where,3);A(`Option ${i+1}: what they like`,o.like);A(`Option ${i+1}: what worries them`,o.worry)});
+ A('Budget',$('budget').value.trim(),5);A('What matters most (in order)',$('needs').value.trim(),5);A('Deal-breakers',$('dealb').value.trim(),5);A('Deciding when',$('when').value,3);A('Anything else',$('notes').value.trim(),3);
+ const doc={name:'SHORTLIST · '+$('cname').value.trim(),contact:$('cemail').value.trim()+($('cphone').value.trim()?' · '+$('cphone').value.trim():''),submittedAt:new Date().toISOString(),status:'new',answers,
+  profile:{budget:$('budget').value.trim(),fuel:os.map(o=>o.name).join(' | '),gearbox:'Shortlist feedback',body:c.l,confidence:'',warnings:[]}};
+ $('go').disabled=true;$('go').textContent='Sending…';
+ try{await fetch(c.u,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(doc)});
+  try{localStorage.removeItem('shortlist')}catch(e){}
+  $('f').style.display='none';$('done').style.display='block';$('donemsg').textContent=`We’ll email feedback on your ${os.length} option${os.length>1?'s':''} to ${$('cemail').value.trim()}.`;window.scrollTo({top:0,behavior:'smooth'})}
+ catch(err){$('go').disabled=false;$('go').textContent='Get feedback on my shortlist →';$('m-all').textContent="Couldn't send. Please check your connection and try again."}};
+</script></body></html>
