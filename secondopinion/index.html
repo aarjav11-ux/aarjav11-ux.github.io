@@ -37,8 +37,8 @@ footer{color:var(--muted);font-size:13px;text-align:center;padding:30px 16px}
 .ft-logo{font-family:'Space Grotesk',Inter,sans-serif;font-weight:700;font-size:19px;color:#fff;margin-bottom:8px}.ft p{margin:0 0 8px;line-height:1.5}.ft-trust{color:#f3b98c}
 .ft h4{color:#fff;font-size:13px;letter-spacing:.08em;text-transform:uppercase;margin:4px 0 12px}.ft a{display:block;color:#c9d2e3;text-decoration:none;margin-bottom:8px}.ft a:hover{color:#f3b98c}
 .ft-bot{border-top:1px solid rgba(255,255,255,.12);margin-top:30px;padding-top:16px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;font-size:13px;color:#8e9bb5}
-</style></head><body>
-<div class="top"><div class="w"><a class="logo" href="../">🧭 DecideWell</a><a href="../">← Back to website</a></div></div>
+</style><style>.two2{grid-template-columns:1fr 1fr}@media(max-width:560px){.two2{grid-template-columns:1fr}}</style><link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2314213d'/%3E%3Ccircle cx='32' cy='32' r='17' fill='none' stroke='%23f0a26a' stroke-width='6'/%3E%3Ccircle cx='32' cy='32' r='5' fill='%23f0a26a'/%3E%3C/svg%3E"></head><body>
+<div class="top"><div class="w"><a class="logo" href="../">🧭 DecideWell</a><a href="../cars/">← Back to RightWheel</a></div></div>
 <div class="w"><section class="hero"><span class="eb">Car second opinion</span>
 <h1>Already looking at some cars? Get a second opinion.</h1>
 <p>Just tell us which cars you’re considering. We’ll tell you plainly which fits you best, what to watch out for, and whether something else would suit you better.</p>
@@ -47,13 +47,13 @@ footer{color:var(--muted);font-size:13px;text-align:center;padding:30px 16px}
 <h2><i>🚗</i>Which cars are you considering?</h2>
 <textarea id="cars" rows="5" style="width:100%;margin-top:6px;padding:11px;font:inherit;border:1.5px solid #e2e5eb;border-radius:10px;background:#fff" placeholder="e.g. Hyundai Creta SX(O) turbo AT, Kia Seltos HTX, Tata Curvv. Add variants and quoted prices if you know them."></textarea>
 <p id="e-cars" style="display:none;color:#b42318;font-size:13px;margin:6px 0 0">Please list at least one car.</p>
-<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px">
+<div class="two2" style="display:grid;gap:12px;margin-top:12px">
 <div><label class="f" for="bud">Budget, on-road <small>(optional)</small></label><input id="bud" type="text" placeholder="e.g. ₹15 lakh" style="width:100%;margin-top:6px;padding:11px;font:inherit;border:1.5px solid #e2e5eb;border-radius:10px;background:#fff"></div>
 <div><label class="f" for="city">City <small>(optional)</small></label><input id="city" type="text" placeholder="e.g. Pune" style="width:100%;margin-top:6px;padding:11px;font:inherit;border:1.5px solid #e2e5eb;border-radius:10px;background:#fff"></div></div>
 <label class="f" for="needs" style="display:block;margin-top:12px">What matters most to you? <small>(optional)</small></label>
 <textarea id="needs" rows="2" placeholder="e.g. Automatic, safety, space for parents" style="width:100%;margin-top:6px;padding:11px;font:inherit;border:1.5px solid #e2e5eb;border-radius:10px;background:#fff"></textarea></div>
 <div class="card"><h2><i>📧</i>Where should we send your feedback?</h2>
-<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+<div class="two2" style="display:grid;gap:12px">
 <div><label class="f" for="cname">Your name</label><input id="cname" type="text" autocomplete="name" style="width:100%;margin-top:6px;padding:11px;font:inherit;border:1.5px solid #e2e5eb;border-radius:10px;background:#fff"></div>
 <div><label class="f" for="cemail">Email</label><input id="cemail" type="email" autocomplete="email" style="width:100%;margin-top:6px;padding:11px;font:inherit;border:1.5px solid #e2e5eb;border-radius:10px;background:#fff"></div></div>
 <label class="f" for="cphone" style="display:block;margin-top:12px">Phone <small>(optional)</small></label><input id="cphone" type="tel" style="width:100%;margin-top:6px;padding:11px;font:inherit;border:1.5px solid #e2e5eb;border-radius:10px;background:#fff">
