@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>PickWise · Health Insurance Questionnaire</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#fbfaf7;--fg:#14213d;--muted:#5b6475;--line:#e3e7ee;--card:#ffffff;--acc:#c2611f;--acc-soft:#fff4ec;--ok:#2f7d5b;--warn:#b45309;--bad:#c2410c;--navy:#14213d;color-scheme:light}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:Inter,system-ui,-apple-system,sans-serif;font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased}
+main{max-width:720px;margin:0 auto;padding:0 16px 120px}
+.hero{padding:40px 0 20px}
+.hero h1{font-size:30px;line-height:1.2;margin:0 0 8px;letter-spacing:-.01em}
+.hero p{color:var(--muted);margin:0}
+.facts{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+.facts span{background:var(--card);border:1px solid var(--line);border-radius:999px;padding:5px 12px;font-size:13px;color:var(--muted)}
+.bar{position:sticky;top:0;z-index:5;background:var(--bg);padding:12px 0 10px;border-bottom:1px solid var(--line);margin-bottom:20px}
+.bar .meta{display:flex;justify-content:space-between;font-size:13px;color:var(--muted);font-weight:500}
+.bar .meta b{color:var(--fg)}
+.track{height:6px;background:var(--line);border-radius:3px;overflow:hidden;margin-top:8px}
+.track i{display:block;height:100%;background:var(--acc);width:0;transition:width .3s}
+.dots{display:flex;gap:4px;margin-top:10px;overflow-x:auto;padding-bottom:2px}
+.dots button{flex:1 0 auto;min-width:22px;height:6px;padding:0;margin:0;border:0;border-radius:3px;background:var(--line);cursor:pointer}
+.dots button.done{background:var(--ok)}.dots button.cur{background:var(--acc)}
+.step{display:none}.step.on{display:block;animation:in .25s ease}
+@keyframes in{from{opacity:0;transform:translateY(6px)}}
+.step-head{margin:4px 0 18px}
+.step-head .k{font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--acc)}
+.step-head h2{font-size:24px;margin:4px 0 2px;letter-spacing:-.01em}
+.step-head p{margin:0;color:var(--muted);font-size:14px}
+.q{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 18px 16px;margin:0 0 14px}
+.q>label.t{display:block;font-weight:600;font-size:16.5px;margin-bottom:12px}
+.q .n{color:var(--muted);font-weight:500;margin-right:6px}
+.req:after{content:" *";color:var(--bad)}
+.w{display:inline-block;font-size:11px;font-weight:600;padding:2px 8px;border-radius:999px;margin-left:8px;vertical-align:2px;background:var(--bg);color:var(--muted);white-space:nowrap}
+.w5{background:#fdecec;color:#b42318}.w4{background:#fff4e5;color:#b45309}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:14px}.row .q{margin-bottom:14px}
+@media(max-width:560px){.row{grid-template-columns:1fr;gap:0}.hero h1{font-size:25px}}
+input[type=number],input[type=text],input[type=email]{width:100%;padding:13px 14px;font:inherit;border:1.5px solid var(--line);border-radius:10px;background:var(--bg);color:var(--fg);outline:none;transition:border-color .15s}
+input[type=number]:focus,input[type=text]:focus,input[type=email]:focus{border-color:var(--acc);background:var(--card)}
+.opts{display:grid;gap:8px}
+.opt{display:flex;align-items:center;gap:12px;padding:11px 14px;border:1.5px solid var(--line);border-radius:10px;cursor:pointer;transition:border-color .15s,background .15s}
+.opt:hover{border-color:var(--acc)}
+.opt input{position:absolute;opacity:0;pointer-events:none}
+.opt .dot{width:20px;height:20px;border-radius:50%;border:2px solid var(--line);flex:none;display:grid;place-items:center}
+.opt:has(input:checked){border-color:var(--acc);background:var(--acc-soft)}
+.opt:has(input:checked) .dot{border-color:var(--acc)}
+.opt:has(input:checked) .dot:after{content:"";width:10px;height:10px;border-radius:50%;background:var(--acc)}
+.opt:has(input:focus-visible){outline:2px solid var(--acc);outline-offset:2px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chips label{border:1.5px solid var(--line);padding:8px 14px;border-radius:999px;cursor:pointer;font-size:15px;transition:all .15s;user-select:none}
+.chips label:hover{border-color:var(--acc)}
+.chips input{position:absolute;opacity:0;pointer-events:none}
+.chips label:has(input:checked){border-color:var(--acc);background:var(--acc);color:#fff}
+.chips label:has(input:checked) span:before{content:"✓ "}
+.err{border-color:var(--bad)!important;box-shadow:0 0 0 3px rgba(194,65,12,.15)}
+.err-msg{color:var(--bad);font-size:13px;margin:-6px 0 12px;display:none}.err .err-msg{display:block}
+.nav{position:fixed;left:0;right:0;bottom:0;z-index:6;background:var(--card);border-top:1px solid var(--line);padding:12px 16px calc(12px + env(safe-area-inset-bottom))}
+.nav .in{max-width:720px;margin:0 auto;display:flex;gap:10px;align-items:center}
+.nav .hint{flex:1;font-size:13px;color:var(--muted)}
+button{font:inherit;font-weight:600;padding:12px 22px;border:0;border-radius:10px;background:var(--acc);color:#fff;cursor:pointer}
+button.ghost{background:transparent;color:var(--fg);border:1.5px solid var(--line)}
+button:disabled{opacity:.4;cursor:default}
+#go{display:none}
+#out{margin-top:20px;padding:22px;background:var(--card);border:1.5px solid var(--acc);border-radius:14px;display:none}
+#out h3{margin-top:0}#out li{margin:6px 0}
+#saved{font-size:15px;font-weight:500;color:var(--ok);margin:16px 0 0}
+.sample{display:flex;align-items:center;gap:14px;margin-top:18px;padding:14px 16px;background:var(--card);border:1.5px solid var(--line);border-radius:14px;color:var(--fg);text-decoration:none;transition:border-color .15s}
+.sample:hover{border-color:var(--acc)}
+.sample-ic{flex:none;width:44px;height:52px;border-radius:6px;background:var(--acc-soft);color:var(--acc);font-size:12px;font-weight:700;display:grid;place-items:center}
+.sample-tx{flex:1;display:flex;flex-direction:column;gap:2px}.sample-tx span{font-size:13px;color:var(--muted);line-height:1.45}
+.sample-go{flex:none;font-weight:600;color:var(--acc);font-size:14px}
+@media(max-width:560px){.sample-go{display:none}}
+h1,h2,.step-head h2{font-family:'Space Grotesk',Inter,sans-serif}
+.topnav{background:var(--navy);color:#f7f5f0}
+.topnav .in{max-width:720px;margin:0 auto;padding:0 16px;height:60px;display:flex;align-items:center;justify-content:space-between}
+.topnav a{color:inherit;text-decoration:none}
+.topnav .logo{font-family:'Space Grotesk',Inter,sans-serif;font-weight:700;font-size:19px;display:flex;align-items:center;gap:10px}
+.topnav .logo i{width:28px;height:28px;border-radius:8px;background:var(--acc);display:grid;place-items:center;font-style:normal;font-size:15px}
+.topnav .home{font-size:14px;opacity:.85}.topnav .home:hover{opacity:1}
+.hero .eb{display:inline-block;font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--acc);margin-bottom:8px}
+button:not(.ghost){box-shadow:0 6px 18px rgba(194,97,31,.25)}
+#thanks{display:none;max-width:760px;margin:10px auto 60px}
+#thanks .tk-hero{text-align:center;padding:36px 20px 10px}
+#thanks .tick{width:68px;height:68px;border-radius:50%;background:var(--ok);color:#fff;font-size:36px;line-height:68px;margin:0 auto 14px}
+#thanks h2{font-family:'Space Grotesk',Inter,sans-serif;font-size:30px;margin:0 0 6px}
+#thanks .card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px 24px;margin-top:18px}
+#thanks .card h3{margin:0 0 12px;font-size:18px}
+#thanks ol.next{margin:0;padding-left:20px;line-height:1.7}
+#thanks .fq{margin:16px 0}#thanks .fq>b{display:block;margin-bottom:8px;font-size:15px}
+#thanks .stars button{font-size:32px;background:none;border:0;color:#d6dae2;cursor:pointer;padding:0 3px;line-height:1}
+#thanks .stars button.on{color:#f59e0b}
+#thanks .pills{display:flex;flex-wrap:wrap;gap:8px}
+#thanks .pills label{border:1px solid var(--line);border-radius:999px;padding:7px 14px;cursor:pointer;font-size:14px;background:#fff}
+#thanks .pills input{display:none}#thanks .pills label:has(input:checked){background:var(--acc-soft);border-color:var(--acc);color:var(--acc);font-weight:600}
+#thanks textarea{width:100%;min-height:80px;border:1px solid var(--line);border-radius:10px;padding:10px;font:inherit;box-sizing:border-box}
+#thanks .fb-btn{background:var(--acc);color:#fff;border:0;border-radius:10px;padding:12px 22px;font-weight:600;font-size:15px;cursor:pointer}
+#thanks .fb-err{color:var(--bad);font-size:14px;display:none}
+#thanks .fb-done{display:none;text-align:center;padding:10px 0}
+</style><link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2314213d'/%3E%3Ccircle cx='32' cy='32' r='17' fill='none' stroke='%23f0a26a' stroke-width='6'/%3E%3Ccircle cx='32' cy='32' r='5' fill='%23f0a26a'/%3E%3C/svg%3E"></head><body><div class="topnav"><div class="in"><a class="logo" href="https://aarjav11-ux.github.io/health-insurance/"><i>🛡️</i>PickWise Health</a><a class="home" href="https://aarjav11-ux.github.io/health-insurance/">← Back to PickWise Health</a></div></div><main>
+<header class="hero">
+<span class="eb">Policy lene se pehle ek baar</span>
+<h1>Find the right health insurance for your family</h1>
+<p>Answer questions about your family, health history, budget and the hospital you&#x27;d want. We&#x27;ll email you a personalised report with the best-fit health insurance plans for you.</p><div style="display:flex;align-items:baseline;gap:10px;margin:6px 0 10px;flex-wrap:wrap"><span style="font-size:20px;color:#6b7280;text-decoration:line-through">₹999</span><span style="font-family:'Space Grotesk',sans-serif;font-size:26px;font-weight:700;color:#b55315">Free</span><span style="background:#ecf7f1;color:#2f7d5b;font-weight:700;font-size:13px;border-radius:99px;padding:4px 12px">First report free</span></div>
+<div class="facts"><span>⏱ About 6–8 minutes</span><span>7 short steps</span><span>Answers saved on this device</span></div>
+</header>
+<div class="bar"><div class="meta"><span id="stepname"><b>Step 1</b></span><span id="pc">0 of 100 answered</span></div><div class="track"><i id="pb"></i></div><div class="dots" id="dots"></div></div>
+<section class="step on" id="s-contact">
+<div class="step-head"><div class="k">Before we start</div><h2>Where should we send your report?</h2><p>We only use these details to send your report.</p></div>
+<div class="q" id="qc-name"><label class="t req" for="cname">Your name</label><p class="err-msg">Please enter your name.</p><input type="text" id="cname" autocomplete="name" placeholder="e.g. Priya Sharma"></div>
+<div class="q" id="qc-email"><label class="t req" for="cemail">Email</label><p class="err-msg">Please enter a valid email address.</p><input type="email" id="cemail" autocomplete="email" placeholder="you@example.com"></div>
+<div class="q"><label class="t" for="cphone">Phone <span style="color:var(--muted);font-weight:400">(optional)</span></label><input type="tel" id="cphone" autocomplete="tel" placeholder="e.g. 98xxxxxx10" style="width:100%;padding:13px 14px;font:inherit;border:1.5px solid var(--line);border-radius:10px;background:var(--bg);color:var(--fg)"></div>
+</section>
+<form id="f"></form>
+<p id="saved"></p>
+<div id="out"></div>
+<section id="thanks">
+<div class="tk-hero"><div class="tick">✓</div><h2 id="tk-h">Thank you!</h2><p style="color:var(--muted);margin:0">Your answers are in. Your consultation has started.</p></div>
+<div class="card"><h3>What happens next</h3><ol class="next">
+<li>We go through your answers, giving the most weight to what matters most to you.</li>
+<li>We match them against our research library and cross-check with a second opinion.</li>
+<li>Your detailed PDF report, with the 3 best-fit options for you, is emailed to <b id="tk-mail"></b>.</li></ol>
+<p style="color:var(--muted);font-size:14px;margin:12px 0 0">Don’t see it? Check your spam or promotions folder.</p></div>
+<div class="card" id="tk-sum"></div>
+<div class="card" id="fb"><h3>How was this for you?</h3><p style="color:var(--muted);margin:0 0 6px;font-size:14px">A minute of feedback helps us improve. Optional.</p>
+<div class="fq"><b>Overall, how would you rate the experience?</b><div class="stars" id="fb-stars"></div></div>
+<div class="fq"><b>How easy were the questions to answer?</b><div class="pills" data-k="ease"></div></div>
+<div class="fq"><b>How did the length feel?</b><div class="pills" data-k="length"></div></div>
+<div class="fq"><b>Were any questions confusing or unclear?</b><div class="pills" data-k="confusing"></div></div>
+<div class="fq"><b>Did the questions cover what matters to you?</b><div class="pills" data-k="coverage"></div></div>
+<div class="fq"><b>Would you recommend this consultation to a friend?</b><div class="pills" data-k="recommend"></div></div>
+<div class="fq"><b>How did you hear about us?</b><div class="pills" data-k="source"></div></div>
+<div class="fq"><b>Anything we should add, remove or improve?</b><textarea id="fb-text" placeholder="e.g. a question that was confusing, something we missed…"></textarea></div>
+<p class="fb-err" id="fb-err">Please pick a star rating first.</p>
+<button type="button" class="fb-btn" id="fb-go">Send feedback</button></div>
+<div class="card fb-done" id="fb-done"><h3 style="margin:0">🙏 Thanks for the feedback!</h3><p style="color:var(--muted);margin:6px 0 0">It goes straight to us and helps make this better.</p></div>
+<div style="text-align:center;margin:18px 0 6px"><a href="https://aarjav11-ux.github.io/health-insurance/" style="display:inline-block;background:#b55315;color:#fff;font-weight:600;text-decoration:none;border-radius:10px;padding:12px 22px">← Back to PickWise Health home</a></div>
+</section>
+
+</main>
+<nav class="nav"><div class="in"><button type="button" class="ghost" id="back">Back</button><span class="hint" id="hint"></span><button type="button" id="next">Next</button><button id="go" type="button">Get my recommendation</button></div></nav>
+<script>
+// type: n=number, t=text, r=radio, m=multi-select. Options split by |
+const S=[["Personal and family details", [["r", "Who do you want to cover under this health insurance policy?", "Only myself|Myself and my spouse|Myself, spouse and dependent children|My elderly parents only|Entire family including parents in one plan", 1], ["t", "Which city do you currently live in?", "e.g. Pune", 0], ["t", "What are the ages of all the family members you want to cover?", "e.g. 35, 32, 5", 1], ["n", "What is the age of the oldest member you want to insure?", "e.g. 62", 1], ["r", "If you are covering parents, are you open to buying them a separate policy from your spouse and kids?", "Yes, a separate policy for parents to save premium|No, I want everyone in a single family (floater) plan|Not covering parents", 1]]], ["Coverage and budget", [["r", "Do you or your family currently have health insurance from an employer?", "Yes, but I want a separate personal policy|Yes, and I only need a top-up|No, currently uninsured|No, we only have an individual personal policy", 0], ["n", "What is your maximum annual budget for the health insurance premium (₹)?", "e.g. 15000", 1, "budget"], ["r", "What minimum total hospital cover (sum insured) would you feel comfortable having?", "₹5 lakh|₹10 lakh|₹15–25 lakh|₹50 lakh|₹1 crore", 1], ["r", "Are you open to a base policy plus a \"super top-up\" to get ₹50 lakh–₹1 crore cover at a lower cost?", "Yes, very interested in base + super top-up|No, I prefer a single complete base policy", 0], ["r", "How would you prefer to pay your premium?", "Once a year|2–3 years upfront (for a discount)|Monthly instalments", 0]]], ["Health and medical history", [["m", "Do any of the people to be insured have existing illnesses or ongoing health conditions?", "Diabetes|High blood pressure|Thyroid disorder|Asthma or breathing problems|Heart condition|None of these", 1], ["r", "Has anyone to be insured had surgery or a hospital stay in the past 4 years?", "Yes, within the last 12 months|Yes, 1–4 years ago|No", 1], ["m", "Does anyone smoke, chew tobacco or drink alcohol regularly?", "Smoking|Chewing tobacco|Regular alcohol|None of these", 0], ["r", "How long are you willing to wait before existing illnesses get covered?", "Need cover from day 1 or within 1 year (even at a higher premium)|Okay waiting 2–3 years|Okay waiting 4 years for a lower premium", 1], ["r", "Is there any family history of serious conditions like cancer, kidney failure or early heart disease?", "Yes, in a parent or sibling|No|Not sure", 0], ["r", "Are you comfortable with a medical check-up before the policy starts, if the insurer asks for one?", "Yes, completely comfortable|No, I prefer plans with no medical tests", 0]]], ["Hospital and room preferences", [["r", "What kind of hospital room would you expect during a medical emergency?", "Single private AC room with no limits|Shared or twin-sharing room|Suite or deluxe room|Any available room", 1], ["r", "Would you accept a policy that limits daily room rent (e.g. to 1% of your cover) for a cheaper premium?", "No, I want no room-rent limit, to avoid deductions|Yes, okay with a room-rent limit if the premium is much lower", 1], ["t", "Name the 1 or 2 private hospitals near your home where you'd prefer treatment", "e.g. Apollo, Manipal", 0], ["r", "Are you likely to travel to another big city (e.g. Mumbai, Delhi, Bengaluru) for specialised treatment?", "Yes, likely|No, only in my home city or state", 0], ["r", "How important is cover for day-care procedures that need less than 24 hours in hospital (like cataract or dialysis)?", "Crucial, must be covered|Not important", 0]]], ["Policy terms and cost-sharing", [["r", "Would you pay a fixed share of every hospital bill yourself (a co-payment of 10–20%) to lower your premium?", "No, I want 0% co-payment|Yes, willing to pay 10–20% for a cheaper premium", 1], ["r", "How do you feel about payout limits on specific treatments (like cataract, joint replacement or kidney stones)?", "No limits on any treatment|Okay with small limits if the premium is low", 1], ["r", "Do you want cover for non-medical hospital items like gloves, syringes and PPE kits?", "Yes, to avoid paying out of pocket|No, okay paying for these myself", 0], ["r", "If your cover runs out during a year, how should the refill (restoration) work?", "Unlimited refill for any illness, including the same one|Refill only for unrelated illnesses|Not a priority", 0], ["r", "How important is a bonus that increases your cover for every claim-free year?", "Very important, I want cover to grow without the premium rising|Moderately important|Not important", 0], ["r", "Do you want tests and medicines before and after a hospital stay (60–180 days) to be covered?", "Yes, essential|No, only in-hospital costs matter", 0]]], ["Add-ons and priorities", [["r", "Do you need cover for routine doctor visits, tests and pharmacy bills without a hospital stay (OPD)?", "Yes, include OPD cover|No, only hospital stays", 0], ["r", "Are you planning a baby in the next 2–4 years and need maternity and newborn cover?", "Yes, need maternity cover|No", 0], ["r", "Do you want cover for Ayurveda, Yoga, Unani, Siddha or Homeopathy (AYUSH) treatment in hospital?", "Yes|No, only modern (allopathic) treatment", 0], ["r", "How do you plan to buy and service your policy?", "Through an independent advisor for claim support|Directly from the insurer's website|Through a local agent or broker", 0], ["r", "What matters most to you when choosing your health insurance?", "Lowest annual premium|Nothing to pay out of pocket in hospital|Fastest, smoothest claim settlement|Highest cover with a big bonus|Day-1 cover for existing illnesses", 1]]]];
+const W={"1": 5, "2": 4, "3": 5, "4": 5, "5": 5, "6": 4, "7": 4, "8": 5, "9": 4, "10": 2, "11": 5, "12": 5, "13": 4, "14": 5, "15": 3, "16": 3, "17": 5, "18": 5, "19": 4, "20": 4, "21": 4, "22": 5, "23": 5, "24": 4, "25": 4, "26": 3, "27": 4, "28": 3, "29": 4, "30": 2, "31": 4, "32": 5};
+const SRC=[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32];
+const WL=['','Minor','Low','Moderate','High','Decisive'],KW={};
+const f=document.getElementById('f');let N=0,html='';
+S.forEach(([title,qs],si)=>{html+=`<section class="step" data-title="${title}"><div class="step-head"><div class="k">Step ${si+2} of ${S.length+1}</div><h2>${title}</h2><p>${qs.length} questions</p></div>`;let pair=[];
+ qs.forEach(q=>{N++;const [ty,t,o,req,key]=q;const id='q'+N,nm=key||id,rq=req?'req':'',wt=W[SRC[N-1]];KW[nm]=wt;let b='';
+  if(ty=='n'||ty=='t')b=`<input type="${ty=='n'?'number':'text'}" name="${nm}" id="${id}" placeholder="${o}" ${ty=='n'?'min="0"':''}>`;
+  else if(ty=='r')b='<div class="opts">'+o.split('|').map(x=>`<label class="opt"><input type="radio" name="${nm}" value="${x}"><span class="dot"></span><span>${x}</span></label>`).join('')+'</div>';
+  else b='<div class="chips">'+o.split('|').map(x=>`<label><input type="checkbox" name="${nm}" value="${x}"><span>${x}</span></label>`).join('')+'</div>';
+  const blk=`<div class="q" data-n="${nm}" data-req="${req}" data-w="${wt}"><label class="t ${rq}" for="${id}"><span class="n">${N}.</span>${t}<span class="w w${wt}" title="Importance weight ${wt} of 5">${WL[wt]}</span></label><p class="err-msg">Please answer this question.</p>${b}</div>`;
+  if(ty=='n'&&(key=='mkm'||key=='ykm')){pair.push(blk);if(pair.length==2){html+=`<div class="row">${pair.join('')}</div>`;pair=[]}}else html+=blk;});html+='</section>';});
+f.innerHTML=html;
+const blocks=[...f.querySelectorAll('.q')];
+function answered(b){const els=f.querySelectorAll(`[name="${b.dataset.n}"]`);return [...els].some(e=>(e.type=='radio'||e.type=='checkbox')?e.checked:e.value.trim()!=='')}
+function prog(){const a=blocks.filter(answered).length;pc.textContent=`${a} of ${N} answered`;pb.style.width=a/N*100+'%'}
+f.addEventListener('input',prog);
+try{const s=JSON.parse(localStorage.getItem('hiq')||'{}');for(const[k,v]of Object.entries(s))[].concat(v).forEach(x=>{f.querySelectorAll(`[name="${k}"]`).forEach(e=>{if(e.type=='radio'||e.type=='checkbox'){if(e.value==x)e.checked=true}else e.value=x})});prog()}catch(e){}
+// ---- step-by-step navigation ----
+const steps=[document.getElementById('s-contact'),...f.querySelectorAll('.step')];let cur=0;
+const dots=document.getElementById('dots');
+steps.forEach((st,i)=>{const d=document.createElement('button');d.type='button';d.title=i?st.dataset.title:'Your details';d.onclick=()=>show(i);dots.appendChild(d)});
+const contactOk=()=>cname.value.trim()&&/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(cemail.value.trim());
+function stepDone(i){if(i==0)return !!contactOk();return [...steps[i].querySelectorAll('.q')].every(b=>b.dataset.req!='1'||answered(b))}
+function show(i){cur=Math.max(0,Math.min(steps.length-1,i));steps.forEach((st,j)=>st.classList.toggle('on',j==cur));
+ [...dots.children].forEach((d,j)=>{d.className=j==cur?'cur':(stepDone(j)?'done':'')});
+ stepname.innerHTML=`<b>Step ${cur+1} of ${steps.length}</b> · ${cur?steps[cur].dataset.title:'Your details'}`;
+ back.disabled=cur==0;const last=cur==steps.length-1;next.style.display=last?'none':'inline-block';go.style.display=last?'inline-block':'none';
+ hint.textContent=last?'Last step!':'';if(show.ready)window.scrollTo({top:document.querySelector('.bar').offsetTop,behavior:'smooth'});
+ try{localStorage.setItem('hiq-step',cur)}catch(e){}}
+function flag(i){let bad=[];if(i==0){qc_name.classList.toggle('err',!cname.value.trim());qc_email.classList.toggle('err',!contactOk()&&!!cname.value.trim()||!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(cemail.value.trim()));bad=[...steps[0].querySelectorAll('.err')]}
+ else{steps[i].querySelectorAll('.q').forEach(b=>{const m=b.dataset.req=='1'&&!answered(b);b.classList.toggle('err',m);if(m)bad.push(b)})}
+ if(bad.length)bad[0].scrollIntoView({behavior:'smooth',block:'center'});return !bad.length}
+const qc_name=document.getElementById('qc-name'),qc_email=document.getElementById('qc-email');
+next.onclick=()=>{if(flag(cur))show(cur+1)};back.onclick=()=>show(cur-1);
+document.addEventListener('input',e=>{const q=e.target.closest('.q');if(q&&q.classList.contains('err'))q.classList.remove('err');
+ [...dots.children].forEach((d,j)=>{if(j!=cur)d.className=stepDone(j)?'done':''})});
+// auto-advance focus: after picking a radio, gently scroll to the next question
+f.addEventListener('change',e=>{if(e.target.type!='radio')return;const q=e.target.closest('.q');const nx=q&&q.nextElementSibling;if(nx&&nx.classList.contains('q')&&!answered(nx))setTimeout(()=>nx.scrollIntoView({behavior:'smooth',block:'center'}),150)});
+try{const c=JSON.parse(localStorage.getItem('hiq-contact')||'{}');if(c.n)cname.value=c.n;if(c.e)cemail.value=c.e;if(c.p)cphone.value=c.p}catch(e){}
+const s_contact_save=()=>{try{localStorage.setItem('hiq-contact',JSON.stringify({n:cname.value,e:cemail.value,p:cphone.value}))}catch(e){}};
+[cname,cemail,cphone].forEach(el=>el.addEventListener('input',s_contact_save));
+show(0);show.ready=true;
+function data(){const d={};new FormData(f).forEach((v,k)=>{if(v==='')return;d[k]=k in d?[].concat(d[k],v):v});return d}
+f.addEventListener('change',()=>{try{localStorage.setItem('hiq',JSON.stringify(data()))}catch(e){}});
+
+go.onclick=()=>{if(go.disabled)return;blocks.forEach(b=>b.classList.remove('err'));const miss=blocks.filter(b=>b.dataset.req=='1'&&!answered(b));
+ if(!contactOk()){show(0);flag(0);return}
+ if(miss.length){const si=steps.findIndex(st=>st.contains(miss[0]));show(si);setTimeout(()=>flag(si),300);hint.textContent=miss.length+' required question(s) still to answer';return}
+ const d=data();
+ const tw=blocks.reduce((t,b)=>t+ +b.dataset.w,0),aw=blocks.filter(answered).reduce((t,b)=>t+ +b.dataset.w,0),conf=Math.round(aw/tw*100);
+ const dec=blocks.filter(b=>b.dataset.w=='5'&&answered(b)).map(b=>{const q=b.querySelector('label.t').firstChild.nextSibling.textContent;const v=[].concat(d[b.dataset.n]??[]).join(', ');return {q,v,k:b.dataset.n}});
+ const top=dec.filter(x=>!['budget','items'].includes(x.k)&&x.v!==d.budget);
+ const bud=d.budget?+d.budget:'',warn=[];
+ out.style.display='block';out.innerHTML=`<h3 style="margin-top:0">Thank you! Here’s what matters most to you</h3>
+ <p><b>Confidence: ${conf}%</b> <span style="color:var(--muted)">(share of total question weight you answered)</span></p>
+ <ul>${dec.slice(0,8).map(x=>`<li><b>${x.q}</b> ${x.v}</li>`).join('')}</ul>
+ <p style="color:var(--muted);font-size:14px">Your detailed personalised report with our top 3 picks will be emailed to you.</p>`;
+ out.scrollIntoView({behavior:'smooth'});
+ // Save the submission: every question with its weight and answer, plus the computed profile
+ const answers=blocks.map((b,i)=>{const v=[].concat(d[b.dataset.n]??[]);return{n:i+1,q:b.querySelector('label.t').firstChild.nextSibling.textContent,w:+b.dataset.w,a:v.join(', ')}}).filter(r=>r.a);
+ const profile={budget:bud,fuel:top[0]?top[0].v:'',gearbox:top[1]?top[1].v:'',body:top[2]?top[2].v:'',confidence:conf,warnings:warn};
+ saveSub({name:cname.value.trim(),contact:cemail.value.trim()+(cphone.value.trim()?' · '+cphone.value.trim():''),submittedAt:new Date().toISOString(),status:'new',answers,profile});};
+const SCRIPT_URL='https://script.google.com/macros/s/AKfycbw1eKioP5CNcOLBGMRBRdbE6Zc-J0pNkSfxFJXKpOfeyzSkbt3d1Pq_oeqgYpRi6Ag/exec';
+async function saveSub(doc){saved.textContent='Submitting your answers…';go.disabled=true;go.textContent='Submitting…';
+ try{await fetch(SCRIPT_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(doc)});
+  saved.textContent=`✓ Submitted. We'll email your personalised healthinsurance report to ${cemail.value.trim()} shortly.`;showThanks()}
+ catch(e){go.disabled=false;go.textContent='Get my recommendation';saved.textContent="Your recommendation is shown above, but your answers couldn't be submitted. Please check your connection and try again."}}
+
+// ---- thank-you page + feedback ----
+const PRODUCT='car';
+const FB={ease:['Very easy','Easy','Okay','Difficult'],length:['Too short','Just right','A bit long','Too long'],confusing:['None','A few','Many'],coverage:['Yes, fully','Mostly','Missed some things'],recommend:['Yes','Maybe','No'],source:['WhatsApp','A friend','Social media','Other']};
+document.querySelectorAll('#thanks .pills').forEach(p=>{p.innerHTML=FB[p.dataset.k].map(v=>`<label><input type="radio" name="fb-${p.dataset.k}" value="${v}">${v}</label>`).join('')});
+let fbStar=0;const st=document.getElementById('fb-stars');
+st.innerHTML=[1,2,3,4,5].map(n=>`<button type="button" data-n="${n}" aria-label="${n} star${n>1?'s':''}">★</button>`).join('');
+st.onclick=e=>{const n=+e.target.dataset.n;if(!n)return;fbStar=n;[...st.children].forEach(b=>b.classList.toggle('on',+b.dataset.n<=n));document.getElementById('fb-err').style.display='none'};
+function showThanks(){const nm=cname.value.trim().split(' ')[0];
+ document.getElementById('tk-h').textContent=`Thank you${nm?', '+nm:''}!`;document.getElementById('tk-mail').textContent=cemail.value.trim();
+ const sum=document.getElementById('tk-sum');if(out.innerHTML.trim()){sum.innerHTML=out.innerHTML;out.style.display='none';const h=sum.querySelector('h3');if(h)h.textContent='What matters most to you';const l=sum.querySelector('p:last-child');if(l&&/emailed/.test(l.textContent))l.remove()}else sum.style.display='none';
+ document.querySelectorAll('main > *:not(#thanks)').forEach(el=>el.style.display='none');document.querySelector('nav.nav').style.display='none';
+ document.getElementById('thanks').style.display='block';window.scrollTo({top:0,behavior:'smooth'});
+ try{localStorage.removeItem(LSK);localStorage.removeItem(LSK+'-step');localStorage.removeItem(LSK+'-contact')}catch(e){}}
+const LSK='hiq';
+document.getElementById('fb-go').onclick=async()=>{if(!fbStar){document.getElementById('fb-err').style.display='block';return}
+ const g=k=>(document.querySelector(`[name="fb-${k}"]:checked`)||{}).value||'';
+ const answers=[{n:1,q:'Overall rating (1-5)',w:0,a:String(fbStar)},...Object.keys(FB).map((k,i)=>({n:i+2,q:document.querySelector(`[data-k="${k}"]`).previousElementSibling.textContent,w:0,a:g(k)})),{n:9,q:'Suggestions',w:0,a:document.getElementById('fb-text').value.trim()}].filter(r=>r.a);
+ const b=document.getElementById('fb-go');b.disabled=true;b.textContent='Sending…';
+ try{await fetch(SCRIPT_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({name:'FEEDBACK · '+cname.value.trim(),contact:cemail.value.trim(),profile:{budget:'',fuel:'Rating '+fbStar+'/5',gearbox:'Ease: '+g('ease'),body:'Length: '+g('length'),confidence:'',warnings:[]},answers})})}catch(e){}
+ document.getElementById('fb').style.display='none';document.getElementById('fb-done').style.display='block'};
+</script><p style="text-align:center;color:#6b7280;font-size:12.5px;margin:30px 0 90px">PickWise · Registered address: D204 Adarsh Lakefront, Bellandur, Bengaluru, Karnataka 560103</p></body></html>
